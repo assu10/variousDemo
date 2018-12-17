@@ -25,7 +25,7 @@ import java.util.List;
 public class SwaggerController {
 
     @Autowired
-    SwaggerService swaggerService;
+    private SwaggerService swaggerService;
 
 
     @ApiOperation(value = "Set Api Operation", notes = "샘플 응답 URL")
@@ -72,5 +72,11 @@ public class SwaggerController {
     @RequestMapping(value="name", method = RequestMethod.GET)
     public List<SampleDto> names(HttpServletRequest req) throws SQLException {
         return swaggerService.names();
+    }
+
+    @ApiOperation(value = "DB GET API", notes = "DB 조회(mybatis)")
+    @RequestMapping(value="getNames", method = RequestMethod.GET)
+    public List<SampleDto> getNames(HttpServletRequest req) throws SQLException {
+        return swaggerService.getNames();
     }
 }

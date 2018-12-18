@@ -6,6 +6,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +30,6 @@ public class SwaggerController {
 
 
     @ApiOperation(value = "Set Api Operation", notes = "샘플 응답 URL")
-    //@RequestMapping(value="{name}", method = RequestMethod.PUT)
     @RequestMapping(value="put", method = RequestMethod.PUT)
     public SampleDto swaggerSetTest(@ApiParam(required = true, name="name", value="SET")
                               @PathVariable String name) {
@@ -78,5 +78,11 @@ public class SwaggerController {
     @RequestMapping(value="getNames", method = RequestMethod.GET)
     public List<SampleDto> getNames(HttpServletRequest req) throws SQLException {
         return swaggerService.getNames();
+    }
+
+    @ApiOperation(value = "DB SET API", notes = "DB 저장(mybatis)")
+    @RequestMapping(value="setNames", method = RequestMethod.PUT)
+    public int setNames(HttpServletRequest req) throws Exception {
+        return swaggerService.setNames();
     }
 }

@@ -30,4 +30,15 @@ public class SwaggerService {
     public List<SampleDto> getNames() throws SQLException {
         return sampleMapper.getNames();
     }
+
+    public int setNames() throws Exception {
+        int result = 0;
+        sampleMapper.setNames();
+
+        if (1==1) {
+            throw new Exception();
+            //result = sampleMapper.setNames();
+        }
+        return result;
+    }
 }

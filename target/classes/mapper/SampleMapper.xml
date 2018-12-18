@@ -6,5 +6,7 @@
     <select id="getNames" resultType="com.example.demo.sample.dto.SampleDto">
         SELECT seq as SEQ, name AS name, regDate AS regDate FROM got2_test.tbl_api
     </select>
-
+    <insert id="setNames">
+        INSERT INTO got2_test.tbl_api(name) VALUES ('TEST')
+    </insert>
 </mapper>

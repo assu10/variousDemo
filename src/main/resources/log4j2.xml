@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info" monitorInterval="30">
+    <Properties>
+        <!-- Property name="LOG_FORMAT">%d{yyyy-MM-dd HH:mm:ss} %p %m%n</Property -->
+        <Property name="LOG_FORMAT">[%d{yyyy-MM-dd HH:mm:ss a}] [%t] %-8p %l - %m%n</Property>
+        <Property name="BASE_DIR">C:/jhlog</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- console -->
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_FORMAT}"/>
+        </Console>
+
+        <!-- file -->
+        <RollingFile name="File" fileName="${BASE_DIR}/demo.log" filePattern="${BASE_DIR}/demo.%d{yyyyMMdd}.log">
+            <PatternLayout pattern="${LOG_FORMAT}"/>
+            <Policies>
+                <!-- 1일 주기로 file rolling up -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+
+            <!-- 30일까지만 로그 보관 -->
+            <DefaultRolloverStrategy>
+                <Delete basePath="${BASE_DIR}">
+                    <IfFileName glob="*.log" />
+                    <IfLastModified age="30d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+
+        <!-- all log : debug -->
+        <Root level="error">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File" />
+        </Root>
+
+        <!-- springframework log : warn -->
+        <logger name="org.springframework" level="warn" additivity="false">
+            <appender-ref ref="Console" />
+            <appender-ref ref="File" />
+        </logger>
+
+        <!-- apache : warn -->
+        <logger name="org.apache.http" level="warn" additivity="false">
+            <appender-ref ref="Console" />
+            <appender-ref ref="File" />
+        </logger>
+
+        <!-- custom : debug -->
+        <logger name="com.example.demo" level="debug" additivity="false">
+            <appender-ref ref="Console" />
+            <appender-ref ref="File" />
+        </logger>
+
+    </Loggers>
+
+</Configuration>

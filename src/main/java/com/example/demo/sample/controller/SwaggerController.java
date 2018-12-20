@@ -6,7 +6,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,28 +27,7 @@ public class SwaggerController {
     @Autowired
     private SwaggerService swaggerService;
 
-
-    @ApiOperation(value = "Set Api Operation", notes = "샘플 응답 URL")
-    @RequestMapping(value="put", method = RequestMethod.PUT)
-    public SampleDto swaggerSetTest(@ApiParam(required = true, name="name", value="SET")
-                              @PathVariable String name) {
-        SampleDto vo = new SampleDto();
-        vo.setName(name);
-
-        return vo;
-    }
-
-    @ApiOperation(value = "Get Api Operation", notes = "샘플 응답 URL")
-    @RequestMapping(value="set", method = RequestMethod.GET)
-    public SampleDto swaggerGetTest(@ApiParam(required = true, name="name", value="GET")
-                                 @PathVariable String name) {
-        SampleDto vo = new SampleDto();
-        vo.setName(name);
-
-        return vo;
-    }
-
-    @ApiOperation(value = "메인 페이지")
+    @ApiOperation(value = "샘플1 API")
     @GetMapping(value = "/main/{area}")
     public SampleDto main(@PathVariable String area
             , @RequestParam String param1
@@ -61,26 +39,46 @@ public class SwaggerController {
         return resultMain;
     }
 
-    @ApiOperation(value = "DB SET API", notes = "DB 저장")
+    @ApiOperation(value = "샘플2 API(VO GET)", notes = "vo 리턴하는 API")
+    @RequestMapping(value="put", method = RequestMethod.PUT)
+    public SampleDto swaggerSetTest(@ApiParam(required = true, name="name", value="SET")
+                              @PathVariable String name) {
+        SampleDto vo = new SampleDto();
+        vo.setName(name);
+
+        return vo;
+    }
+
+    @ApiOperation(value = "샘플3 API(VO SET)", notes = "vo 리턴하는 API")
+    @RequestMapping(value="set", method = RequestMethod.GET)
+    public SampleDto swaggerGetTest(@ApiParam(required = true, name="name", value="GET")
+                                 @PathVariable String name) {
+        SampleDto vo = new SampleDto();
+        vo.setName(name);
+
+        return vo;
+    }
+
+    @ApiOperation(value = "샘플4 API(DB SET)", notes = "DB 저장하는 API - JDBC")
     @RequestMapping(value="name", method = RequestMethod.PUT)
     public int name(@ApiParam(required = true, name="reqName", value="juhyun")
                     @RequestParam String reqName) throws Exception {
         return swaggerService.name(reqName);
     }
 
-    @ApiOperation(value = "DB GET API", notes = "DB 조회")
+    @ApiOperation(value = "샘플5 API(DB GET)", notes = "DB 조회하는 API - JDBC")
     @RequestMapping(value="name", method = RequestMethod.GET)
     public List<SampleDto> names(HttpServletRequest req) throws SQLException {
         return swaggerService.names();
     }
 
-    @ApiOperation(value = "DB GET API", notes = "DB 조회(mybatis)")
+    @ApiOperation(value = "샘플6 API(DB GET)", notes = "DB 조회하는 API - mybatis")
     @RequestMapping(value="getNames", method = RequestMethod.GET)
     public List<SampleDto> getNames(HttpServletRequest req) throws SQLException {
         return swaggerService.getNames();
     }
 
-    @ApiOperation(value = "DB SET API", notes = "DB 저장(mybatis)")
+    @ApiOperation(value = "샘플7 API(DB SET)", notes = "DB 저장하는 API - mybatis")
     @RequestMapping(value="setNames", method = RequestMethod.PUT)
     public int setNames(HttpServletRequest req) throws Exception {
         return swaggerService.setNames();

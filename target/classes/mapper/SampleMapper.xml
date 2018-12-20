@@ -4,9 +4,13 @@
 <mapper namespace="com.example.demo.sample.mapper.SampleMapper">
 
     <select id="getNames" resultType="com.example.demo.sample.dto.SampleDto">
-        SELECT seq as SEQ, name AS name, regDate AS regDate FROM got2_test.tbl_api
+        SELECT seq AS SEQ, name AS name, regDate AS regDate FROM got2_test.tbl_api
     </select>
-    <insert id="setNames">
-        INSERT INTO got2_test.tbl_api(name) VALUES ('TEST')
+    <insert id="setNames" parameterType="map">
+        INSERT INTO
+           got2_test.tbl_api(name)
+        VALUES (
+           #{reqName, jdbcType=VARCHAR}
+        )
     </insert>
 </mapper>

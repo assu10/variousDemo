@@ -13,8 +13,7 @@
         </Console>
 
         <!-- file -->
-        <!--<RollingFile name="File" fileName="${BASE_DIR}/demo.log" filePattern="${BASE_DIR}/demo.%d{yyyyMMddhhmm}.log.zip">-->
-        <RollingFile name="File" fileName="${BASE_DIR}/demo.log" filePattern="${BASE_DIR}/demo.%d{yyyyMMddhhmm}.log">
+        <RollingFile name="File" fileName="${BASE_DIR}/demo.log" filePattern="${BASE_DIR}/demo.%d{yyyyMMdd}.log">
             <PatternLayout pattern="${LOG_FORMAT}"/>
             <Policies>
                 <!-- 1일 주기로 file rolling up -->
@@ -30,18 +29,6 @@
             </DefaultRolloverStrategy>
         </RollingFile>
 
-        <!--<RollingFile name="File" fileName="${BASE_DIR}/demo.log" filePattern="${BASE_DIR}/demo.%d{yyyyMMdd}.log">
-            <PatternLayout pattern="${LOG_FORMAT}"/>
-            <Policies>
-                <TimeBasedTriggeringPolicy />
-            </Policies>
-            <DefaultRolloverStrategy>
-                <Delete basePath="${BASE_DIR}">
-                    <IfFileName glob="*.log" />
-                    <IfLastModified age="30d" />
-                </Delete>
-            </DefaultRolloverStrategy>
-        </RollingFile>-->
     </Appenders>
 
     <Loggers>

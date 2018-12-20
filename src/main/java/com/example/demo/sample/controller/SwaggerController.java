@@ -5,6 +5,7 @@ import com.example.demo.sample.service.SwaggerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,12 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 @Api(description = "api 테스트 컨트롤러")
 @RestController
 @RequestMapping(value = "/sample/", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SwaggerController {
+
+    final private Logger logger = Logger.getLogger(getClass());
 
     @Autowired
     private SwaggerService swaggerService;
@@ -80,7 +84,8 @@ public class SwaggerController {
 
     @ApiOperation(value = "샘플7 API(DB SET)", notes = "DB 저장하는 API - mybatis")
     @RequestMapping(value="setNames", method = RequestMethod.PUT)
-    public int setNames(HttpServletRequest req) throws Exception {
-        return swaggerService.setNames();
+    public int setNames(@ApiParam(required = true, name="reqName", value="주현")
+                            @RequestParam HashMap<String, Object> reqMap) throws Exception {
+        return swaggerService.setNames(reqMap);
     }
 }

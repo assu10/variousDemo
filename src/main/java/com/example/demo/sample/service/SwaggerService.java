@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -31,14 +32,14 @@ public class SwaggerService {
         return sampleMapper.getNames();
     }
 
-    public int setNames() throws Exception {
+    public int setNames(HashMap<String, Object> reqMap) throws Exception {
         int result = 0;
-        sampleMapper.setNames();
+        sampleMapper.setNames(reqMap);
 
-        if (1==1) {
-            throw new Exception();
+       /* if (1==1) {
+            //throw new Exception();
             //result = sampleMapper.setNames();
-        }
+        }*/
         return result;
     }
 }
